@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<META http-equiv="Content-Script-Type" content="text/javascript">
+	<META http-equiv="Content-Style-Type" content="text/css">
+	<title>闇☆深・ｘ・ 178 version WoWs stats</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous"> 
+	<link rel="stylesheet" href="css/app.css">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+</head>
+<body ng-app="wows-stats">
+<div class="wrapper">
+	<div class="content" ng-controller="TeamStatsCtrl">
+		<div class="stats" ng-show="players.length>0">
+			<div class="teams">
+
+				<div id="prtype_tbl" data-cv_match_flag="{{ cv_match_flag }}">
+					<h3 class="threat-level-average">戦力評価値平均: <span class="score_average" id="ownteam-score">0</span> [確度： <span id="ownteam-score-accuracy">0</span>%] [介護指数： <span id="ownteam-average-degree-of-dissociation">0</span>%]</h3>
+
+					<Table Border style ="margin: 0 auto;border-width: 3px 1px 1px 3px; border-style: solid; border-color: #38c38c;" class="player-list own-team-list" >
+						<thead> 
+						<Tr>
+							<Th rowspan="2" style="width:150px;">名前</Th>
+							<Th rowspan="2" style="width:50px;">WRR</Th>
+							<Th rowspan="2" style="width:75px;">戦力評価</Th>
+							<Th rowspan="2" style="width:25px;">T</Th>
+							<Th rowspan="2" style="width:36px;">種別</Th>
+							<Th rowspan="2" style="width:130px;">艦名</Th>
+							<Th colspan="8">艦別戦績</Th>
+							<Th colspan="5">総合戦績</Th>
+						</Tr>
+						<Tr>
+							<Th title="艦別勝率" style="width:66px;">勝率</Th>
+							<Th title="一戦平均ダメージ" style="width:60px;">Dmg</Th>
+							<!--<Th title="艦別撃沈数÷艦別被撃沈数" style="width:40px;">K/D</Th>-->
+							<Th title="勝利時生存率(％)-敗北時生存率(％)" style="width:55px;">生存率</Th>
+							<!--<Th title="一戦平均ダメージ/一戦平均撃沈数"style="width:50px;">K効率</Th>-->
+							<Th title="一戦平均撃沈数" style="width:35px;">撃沈</Th>
+							<Th title="一戦平均撃墜数" style="width:35px;">撃墜</Th>
+							<Th title="主砲命中率,発射無しの場合は-(％)" style="width:40px;">主砲</Th>
+							<Th title="魚雷命中率,発射無しの場合は-(％)" style="width:40px;">魚雷</Th>
+							<!--<Th title="艦別平均経験値" style="width:50px;">経験値</Th>-->
+							<Th title="艦別戦闘数"style="width:50px;">戦闘数</Th>
+							<Th title="総合勝率" style="width:66px;">勝率</Th>
+							<Th title="総合平均ダメージ" style="width:60px;">Dmg</Th>
+							<Th title="総撃沈数÷総被撃沈数" style="width:40px;">K/D</Th>
+							<Th title="総合平均経験値" style="width:50px;">経験値</Th>
+							<Th title="総戦闘数" style="width:50px;">戦闘数</Th>
+						</Tr>
+						<Tr class="team_ave">
+							<Th colspan="14">チーム平均</Th>
+							<Th title="チーム平均勝率" id="ownteam-ave-wr"></Th>
+							<Th title="チーム平均ダメージ" id="ownteam-ave-dmg"></Th>
+							<Th title="チーム平均KDR" id="ownteam-ave-kdr"></Th>
+							<Th title="チーム平均経験値" id="ownteam-ave-exp"></Th>
+							<Th title="チーム平均総戦闘数" id="ownteam-ave-btc"></Th>
+						</Tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="(key, value) in players" ng-if="value.relation!=2" name="{{value.ship.shipty}}" class="player {{value.ship.threatLevelClass}}" data-aaindex="{{value.ship.threatLevelAaIndex}}">
+							<Td class="tdata_l player_name" style="height:24px;">
+								{{value.ship.threatLevelClassCode}} - 
+								<a href="http://asia.wows-numbers.com/player/{{ value.uri }}/" name="user_own" style="" target="_blank" title="{{value.name}}">{{value.name_s}}</a>
+								<span name="user_buta"style ="color: #38c38c; display:none;">&nbsp;・３・&nbsp;</span>
+							</Td>
+							<Td class="threatLevel threatLevel-player">{{value.ship.threatLevelPlayer}}</Td>
+							<Td class="threatLevel threatLevel-all {{value.ship.threatLevelClassShip}}">{{value.ship.threatLevelAll}}</Td>
+							<Td class="ship-tier">{{value.ship.shiptia_s}}</Td>
+							<Td class="tdata_l  {{value.ship.bgcolor}}">{{value.ship.shipnation_s}}{{value.ship.shiptype_s}}</Td>
+							<Td class="tdata_l  {{value.ship.bgcolor}}" style="padding-left: 3px; padding-right: 3px;">
+								<span class="shipclass {{value.ship.namefontjp}}" name="shipname_jp" >{{value.ship.namejp}}</span>
+						 		<span class="shipclass {{value.ship.namefont}}" name="shipname_eng" style ="display:none;"> {{value.ship.name}}</span>
+								<span class="key {{value.ship.namefont}}">{{value.ship.shipkakin}}</span>
+							</Td>
+							<Td><span class=" {{value.ship.winRateClass}}" ng-hide="value.ship.err">{{value.ship.winRate}}</span></Td>
+							<Td><span ng-hide="value.ship.err">{{value.ship.avgDmg}}</span></Td>
+							<!--<Td><span ng-hide="value.ship.err">{{value.ship.kdRatio}}</span></Td>-->
+							<Td><span ng-hide="value.ship.err">{{value.ship.svrate}}</span></Td>
+							<!--<Td><span ng-hide="value.ship.err">{{value.ship.killkoo}}</span></Td>-->
+							<Td><span ng-hide="value.ship.err">{{value.ship.shfl}}</span></Td>
+							<Td><span ng-hide="value.ship.err">{{value.ship.ftfl}}</span></Td>
+							<Td><span ng-hide="value.ship.err">{{value.ship.hitratem}}</span></Td>
+							<Td><span ng-hide="value.ship.err">{{value.ship.hitratet}}</span></Td>
+							<!--<Td><span ng-hide="value.ship.err">{{value.ship.avgExp}}</span></Td>-->
+							<Td><span name="battle_suu" ng-hide="value.ship.err">{{value.ship.battles}}</span>
+								<span name="battle_asu" style ="display:none;"  ng-hide="value.err">***</span></Td>
+							<Td class="player_wr"><span class=" {{value.winRateClass}}" ng-hide="value.err">{{value.winRate}}</span></Td>
+							<Td class="player_dmg"><span ng-hide="value.err">{{value.formatdmg}}</span></Td>
+							<Td class="player_kdr"><span ng-hide="value.err">{{value.kdRatio}}</span></Td>
+							<Td class="player_exp"><span ng-hide="value.err">{{value.formatexp}}</span></Td>
+							<Td class="player_btc"><span name="battle_suu" ng-hide="value.err">{{value.formatbattle}}</span>
+								<span name="battle_asu" style ="display:none;"  ng-hide="value.err">***</span></Td>
+						</Tr>
+						</tbody>
+					</Table>
+
+					<h3 class="threat-level-average">戦力評価値平均: <span class="score_average" id="enemyteam-score">0</span> [確度： <span id="enemyteam-score-accuracy">0</span>%] [介護指数： <span id="enemyteam-average-degree-of-dissociation">0</span>%]</h3>
+
+					<Table Border style ="margin: 4px auto;border-width: 3px 1px 1px 3px; border-style: solid; border-color: #DE703C; " class="player-list enemy-team-list" >
+						<thead> 
+						<Tr>
+							<Th rowspan="2" style="width:150px;">名前</Th>
+							<Th rowspan="2" style="width:50px;">WRR</Th>
+							<Th rowspan="2" style="width:75px;">戦力評価</Th>
+							<Th rowspan="2" style="width:25px;">T</Th>
+							<Th rowspan="2" style="width:36px;">種別</Th>
+							<Th rowspan="2" style="width:130px;">艦名</Th>
+							<Th colspan="8">艦別戦績</Th>
+							<Th colspan="5">総合戦績</Th>
+						</Tr>
+						<Tr>
+							<Th title="艦別勝率" style="width:66px;">勝率</Th>
+							<Th title="一戦平均ダメージ" style="width:60px;">Dmg</Th>
+							<!--<Th title="艦別撃沈数÷艦別被撃沈数" style="width:40px;">K/D</Th>-->
+							<Th title="勝利時生存率(％)-敗北時生存率(％)" style="width:55px;">生存率</Th>
+							<!--<Th title="一戦平均ダメージ/一戦平均撃沈数"style="width:50px;">K効率</Th>-->
+							<Th title="一戦平均撃沈数" style="width:35px;">撃沈</Th>
+							<Th title="一戦平均撃墜数" style="width:35px;">撃墜</Th>
+							<Th title="主砲命中率,発射無しの場合は-(％)" style="width:40px;">主砲</Th>
+							<Th title="魚雷命中率,発射無しの場合は-(％)" style="width:40px;">魚雷</Th>
+							<!--<Th title="艦別平均経験値" style="width:50px;">経験値</Th>-->
+							<Th title="艦別戦闘数"style="width:50px;">戦闘数</Th>
+							<Th title="総合勝率" style="width:66px;">勝率</Th>
+							<Th title="総合平均ダメージ" style="width:60px;">Dmg</Th>
+							<Th title="総撃沈数÷総被撃沈数" style="width:40px;">K/D</Th>
+							<Th title="総合平均経験値" style="width:50px;">経験値</Th>
+							<Th title="総戦闘数" style="width:50px;">戦闘数</Th>
+						</Tr>
+						<Tr class="team_ave">
+							<Th colspan="14">チーム平均</Th>
+							<Th title="チーム平均勝率" id="enemyteam-ave-wr"></Th>
+							<Th title="チーム平均ダメージ" id="enemyteam-ave-dmg"></Th>
+							<Th title="チーム平均KDR" id="enemyteam-ave-kdr"></Th>
+							<Th title="チーム平均経験値" id="enemyteam-ave-exp"></Th>
+							<Th title="チーム平均総戦闘数" id="enemyteam-ave-btc"></Th>
+						</Tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="(key, value) in players" ng-if="value.relation==2" name="{{value.ship.shipty}}" class="player {{value.ship.threatLevelClass}}" data-aaindex="{{value.ship.threatLevelAaIndex}}">
+							<Td class="tdata_l player_name" style="height:24px;">
+								{{value.ship.threatLevelClassCode}} - 
+								<a href="http://worldofwarships.asia/ja/community/accounts/{{ value.uri }}/" name="user_own" style="" target="_blank" title="{{value.name}}">{{value.name_s}}</a>
+								<span name="user_buta"style ="color: #38c38c; display:none;">&nbsp;・３・&nbsp;</span>
+							</Td>
+							<Td class="threatLevel threatLevel-player">{{value.ship.threatLevelPlayer}}</Td>
+							<Td class="threatLevel threatLevel-all {{value.ship.threatLevelClassShip}}">{{value.ship.threatLevelAll}}</Td>
+							<Td class="ship-tier">{{value.ship.shiptia_s}}</Td>
+							<Td class="tdata_l  {{value.ship.bgcolor}}">{{value.ship.shipnation_s}}{{value.ship.shiptype_s}}</Td>
+							<Td class="tdata_l  {{value.ship.bgcolor}}" style="padding-left: 3px; padding-right: 3px;">
+								<span class="shipclass {{value.ship.namefontjp}}" name="shipname_jp" >{{value.ship.namejp}}</span>
+						 		<span class="shipclass {{value.ship.namefont}}" name="shipname_eng" style ="display:none;"> {{value.ship.name}}</span>
+								<span class="key {{value.ship.namefont}}">{{value.ship.shipkakin}}</span>
+							</Td>
+							<Td><span class=" {{value.ship.winRateClass}}" ng-hide="value.ship.err">{{value.ship.winRate}}</span></Td>
+							<Td><span ng-hide="value.ship.err">{{value.ship.avgDmg}}</span></Td>
+							<!--<Td><span ng-hide="value.ship.err">{{value.ship.kdRatio}}</span></Td>-->
+							<Td><span ng-hide="value.ship.err">{{value.ship.svrate}}</span></Td>
+							<!--<Td><span ng-hide="value.ship.err">{{value.ship.killkoo}}</span></Td>-->
+							<Td><span ng-hide="value.ship.err">{{value.ship.shfl}}</span></Td>
+							<Td><span ng-hide="value.ship.err">{{value.ship.ftfl}}</span></Td>
+							<Td><span ng-hide="value.ship.err">{{value.ship.hitratem}}</span></Td>
+							<Td><span ng-hide="value.ship.err">{{value.ship.hitratet}}</span></Td>
+							<!--<Td><span ng-hide="value.ship.err">{{value.ship.avgExp}}</span></Td>-->
+							<Td><span name="battle_suu" ng-hide="value.ship.err">{{value.ship.battles}}</span>
+								<span name="battle_asu" style ="display:none;"  ng-hide="value.err">***</span></Td>
+							<Td class="player_wr"><span class=" {{value.winRateClass}}" ng-hide="value.err">{{value.winRate}}</span></Td>
+							<Td class="player_dmg"><span ng-hide="value.err">{{value.formatdmg}}</span></Td>
+							<Td class="player_kdr"><span ng-hide="value.err">{{value.kdRatio}}</span></Td>
+							<Td class="player_exp"><span ng-hide="value.err">{{value.formatexp}}</span></Td>
+							<Td class="player_btc"><span name="battle_suu" ng-hide="value.err">{{value.formatbattle}}</span>
+								<span name="battle_asu" style ="display:none;"  ng-hide="value.err">***</span></Td>
+						</Tr>
+						</tbody>
+					</Table>
+				</div>
+			</div>
+			<h3>〔No{{ data.mapId }}〕{{ gamemapnamejp }}（{{ gameLogicjp }}）<span class="hint" ng-hide="inGame">: 戦闘終了</span></h3> 
+			<div class="buttonset" >
+				<div class="buttonpro1"  > 
+					<input type="button" class="buttonitem1_on" Id="sw1" onclick="shiptypr(0,0,0,0,'sw1')"  value="選択解除" >
+					<input type="button" class="buttonitem1_off" Id="sw2" onclick="shiptypr(0,1,1,1,'sw2')" value="空母" >
+					<input type="button" class="buttonitem1_off" Id="sw3" onclick="shiptypr(1,0,1,1,'sw3')" value="戦艦" >
+					<input type="button" class="buttonitem1_off" Id="sw4" onclick="shiptypr(1,1,0,1,'sw4')" value="巡洋艦" >
+					<input type="button" class="buttonitem1_off" Id="sw5" onclick="shiptypr(1,1,1,0,'sw5')" value="駆逐艦" >
+				</div>
+			</div>
+
+			<div style="clear:both;">
+				<div class="buttonset buttonpro2" >
+				<span >艦名表示</span>
+					<input type="radio" class="buttonitem2" style="margin-left:10px;" name="knp"  value="nm_sw0" onclick="shipname_ex(0)" >ゲーム内表記
+					<input type="radio" class="buttonitem2" style="margin-left:10px;" name="knp" value="nm_sw1" onclick="shipname_ex(1)" checked>日本語等
+				<span style=" margin-left:30px;">表示制限</span>
+					<input type="radio" class="buttonitem2" style="margin-left:10px;" name="idhi" value="id_pr00" onclick="idhide(0,0)" checked> 全表示
+					<input type="radio" class="buttonitem2" style="margin-left:10px;" name="idhi" value="id_pr10" onclick="idhide(1,0)"> 名前非表示
+					<input type="radio" class="buttonitem2" style="margin-left:10px;" name="idhi" value="id_pr11" onclick="idhide(1,1)"> 名前・戦闘数 非表示
+				</div>
+			</div>
+		</div>
+		<h3 ng-hide="inGame">現在戦闘中ではありません</h3>
+		<h4 ng-hide="inGame">自動更新をお待ちください</h4>
+	</div>
+	<div class="footer">
+	<ul class="color_desc">
+		<li><span class="sc-ir">IR</span> Infra-Red - 逆スーパーユニカム。最初計算させたら戦力評価値がマイナスになった。図らずもナチュラルにいない方がマシ説を提唱？</li>
+		<li><span class="sc-r">R</span> Red - IRよりはマシだが、まだ霊長類ツリーをプレイするには早い。デコイくらいにはなって！お願い！</li>
+		<li><span class="sc-o">O</span> Orange - 霊長類未満ココマデ </li>
+		<li><span class="sc-y">Y</span> Yellow - かろうじて人類</li>
+		<li><span class="sc-g">G</span> Green - 一般人 ユニカム引くより一般人以上で埋まってる事が大切ってそれ一番（ｒｙ</li>
+		<li><span class="sc-b">B</span> Blue - 成長途中。勝つ為の戦い方を覚えて実践できるようになってきた、くらい</li>
+		<li><span class="sc-i">I</span> Indigo - 安定して実践できるようになって戦果も安定してきた頃</li>
+		<li><span class="sc-v">V</span> Violet - 十二分に高く安定した戦果を出せる。はず。っょぃ。</li>
+		<li><span class="sc-uv">UV</span> Ultra-Violet - 市民、幸福は義務ですよ？ 傑出した戦果を出しつつ、そもそも何かしらの戦績ロンダリングしていないと無理なクラス</li>
+	</ul>
+	<div>
+	<p class="al-center footer-guide">WRRが何か…って？『WoWs Rabbit Rate』の略だよ♪()</p>
+	<p class="al-center footer-guide">『覚悟した者は幸福である』<br>by 某神父</p>
+	<div class="footer" name="footname" >
+		<p>178(いなば) version WoWs stats v1.3.0</p>
+		Powered by <a href="https://github.com/tianweiliu/wows-stats" id="footerurl">wows-stats</a><br>
+		 Modify by <a href="https://twitter.com/178usagi_game">178usagi</a>(何かバグとか見つけたらどうぞ)<br>
+		 （改造元） "negi 20161118"
+		<!-- 改造 by 178usagi ・３・-->
+	</div>
+</div>
+</body>
+</html>

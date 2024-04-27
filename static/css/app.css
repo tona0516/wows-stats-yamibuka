@@ -1,0 +1,314 @@
+@charset "UTF-8";
+
+body {
+background-color: #393E46;
+color: #EEEEEE;
+font-family:'Lucida Grande',
+ 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3',
+ Meiryo, メイリオ, sans-serif;
+}
+
+a, a:hover, a:visited {
+color: #DE703C;
+}
+
+h1, h2, h3 ,h4 {
+text-align: center;
+}
+
+th{
+text-align:center;
+padding: 0px 1px;
+background-color: #222831;
+border: 1px #808080 solid;
+color: #FBB040;
+white-space: nowrap;
+font-weight: normal;
+}
+td{
+border: 1px #808080 solid;
+padding: 0px 2px;
+text-align:right;
+}
+
+.team_ave {
+line-height: 1.3;
+}
+
+.tdata_l{
+text-align:left;
+}
+
+.wrapper {
+margin: 0 auto;
+}
+
+.hint {
+font-size: 20pt;
+}
+
+.teamown {
+float: left;
+width: 50%;
+}
+
+.teamown li {
+float: left;
+}
+
+.teamene {
+float: left;
+width: 50%;
+}
+
+.teamene li {
+float: left;
+}
+.player:hover {
+box-shadow: 0px 0px 5px 0px #222831;
+}
+
+.player {
+padding: 3px;
+background-color: #222831;
+margin: 0px;
+width: 220px;
+height: 15px;
+}
+
+.player .ship_st_def {
+	margin: 1px 0p;
+}
+.player .AirCarrier_bg {
+background-color: #213030;
+}
+.player .Battleship_bg {
+background-color: #302130;
+}
+.player .Cruiser_bg {
+background-color: #303021;
+}
+.player .Destroyer_bg {
+background-color: #223021;
+}
+
+.player .class1 {
+color: #FE0E00;
+}
+.player .class2 {
+color: #FE7903;
+}
+.player .class3 {
+color: #F8F400;
+}
+.player .class4 {
+color: #60FF00;
+}
+.player .class5 {
+color: #02C9B3;
+}
+.player .class6 {
+color: #D042F3;
+}
+
+.player .shipclass {
+color: #FBB040;
+font-size: 11pt;
+white-space: nowrap;
+font-weight:normal
+}
+.player .ship_font_6 {
+letter-spacing: 0.2em; 
+font-size: 11pt;
+color:#eeeeee;
+font-weight:normal
+}
+.player .ship_font_9 {
+font-size: 11pt;
+color:#eeeeee;
+font-weight:normal
+}
+.player .ship_font_14 {
+font-size: 10pt;
+color:#eeeeee;
+white-space: nowrap;
+font-weight:normal
+
+}
+.player .ship_font_20 {
+font-size: 8pt;
+color:#eeeeee;
+white-space: nowrap;
+font-weight:normal
+}
+.player .key {
+color: #FBB040;
+white-space: nowrap;
+}
+
+.player .small {
+font-size: 9pt;
+}
+
+.buttonset {
+Sclear:both;
+text-align: center;
+width: 100%;
+border:1px
+padding:10px
+
+}
+.buttonpro1{
+margin : 10px;
+}
+.buttonitem1_on{
+color:#000000;
+border:inset 3px;
+}
+.buttonitem1_off{
+color:#000000;
+border:outset 3px;
+}
+.disp_off{
+display:none;
+}
+
+.buttonpro2{
+margin-left : 20px;
+margin-right : 20px;
+padding : 5px;
+}
+.buttonitem2{
+color: #EEEEEE
+}
+
+.footer {
+clear: both;
+padding: 10px ;
+text-align: center;
+width: 100%;
+}
+
+
+/* 178 */
+* {
+	box-sizing: border-box;
+}
+.buttonset {
+	margin: 0;
+}
+.al-center {
+	text-align: center;
+}
+.threat-level-average {
+	font-size: 100%;
+	line-height: 1em;
+}
+.score_average {
+	font-size: 160%;
+	font-weight: bold;
+}
+
+.sc-ir td.threatLevel,
+table.player-list tr.player td.sc-ir,
+span.sc-ir {
+	background: black;
+	color: white;
+}
+.sc-r td.threatLevel,
+table.player-list tr.player td.sc-r,
+span.sc-r {
+	background: red;
+	color: white;
+}
+.sc-o td.threatLevel,
+table.player-list tr.player td.sc-o,
+span.sc-o {
+	background: orange;
+	color: #310;
+}
+.sc-y td.threatLevel,
+table.player-list tr.player td.sc-y,
+span.sc-y {
+	background: yellow;
+	color: #310;
+}
+.sc-g td.threatLevel,
+table.player-list tr.player td.sc-g,
+span.sc-g {
+	background: green;
+	color: white;
+}
+.sc-b td.threatLevel,
+table.player-list tr.player td.sc-b,
+span.sc-b {
+	background: #25f;
+	color: white;
+}
+.sc-i td.threatLevel,
+table.player-list tr.player td.sc-i,
+span.sc-i {
+	background: #234794;
+	color: white;
+}
+.sc-v td.threatLevel,
+table.player-list tr.player td.sc-v,
+span.sc-v {
+	background: #705DA8;
+	color: white;
+}
+.sc-uv td.threatLevel,
+table.player-list tr.player td.sc-uv,
+span.sc-uv {
+	background: white;
+	color: black;
+}
+
+.sc-ir > td.player_name,
+.sc-r > td.player_name {
+	background: red;
+	color: white;
+	font-weight: bold;
+}
+.sc-ir > td.player_name a,
+.sc-r > td.player_name a {
+	color: #6fb;
+}
+.sc-i > td.player_name,
+.sc-v > td.player_name,
+.sc-uv > td.player_name {
+	background: #234794;
+	color: white;
+	font-weight: bold;
+}
+.sc-i > td.player_name a,
+.sc-v > td.player_name a,
+.sc-uv > td.player_name a {
+	color: #afd;
+}
+td.player_name a {
+ 	color: #38c38c;
+}
+td.threatLevel {
+	font-weight: bold;
+}
+
+.color_desc {
+	display: inline-block;
+	margin: 0 auto;
+	padding: 0;
+	text-align: left;
+}
+.color_desc li {
+	display: block;
+}
+.color_desc li span {
+	padding: 0.3em;
+	display: inline-block;
+	min-width: 2em;
+	text-align: center;
+}
+.footer-guide {
+	margin-top: 2em;
+	font-size: 80%;
+}

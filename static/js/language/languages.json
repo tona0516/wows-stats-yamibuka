@@ -1,0 +1,7 @@
+[
+	{"value": "ja", "label": "日本語"},
+	{"value": "en", "label": "English"},
+	{"value": "zh-tw", "label": "繁體中文"},
+	{"value": "it", "label": "Italiano"},
+	{"value": "ru", "label": "Русский"}
+]
